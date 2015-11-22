@@ -1,0 +1,7 @@
+{% extends "templates/base.html" %}
+{% block title %}{{metadata.title|first}}{% endblock %}
+
+{% block content %}
+  <h2></h2>
+  {{html|safe}}
+{% endblock %}
