@@ -9,14 +9,19 @@
             [clojure.string :as str]))
 
 (defn parse-post-metadata [file]
-  (md/md-to-html-string-with-meta (-> (str "posts/" file ".md") io/resource slurp)))
+  (md/md-to-html-string-with-meta (str/replace (-> (str "posts/" file ".md") io/resource slurp) "---\n" "")))
 
-
-;; take all but the first one (the directory)
-(def all-posts
+(def post-files-list
   (let [directory (clojure.java.io/file "resources/posts/")
         files (for [file (file-seq directory)] (first (str/split (.getName file) #".md")))]
-    (take 10 (drop 1 files))))
+    (reverse (remove #(= % "posts") (remove #(= % ".DS_Store") files)))))
+
+(def all-posts
+  (map parse-post-metadata post-files-list))
+
+(defn find-post [permalink]
+  (first (filter (fn [post] (= (str "/" permalink "/") (first (get (get post :metadata) :permalink))))
+          (for [post all-posts] post))))
 
 ;; ROUTES
 (defn home [req]
@@ -24,14 +29,13 @@
    :headers {"Content-Type" "text/html"}
    :body    (render-file "templates/index.html" {:posts all-posts})})
 
-
-(defn post [req]
+(defn view [req]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body    (render-file "templates/post.html"
-                         (parse-post-metadata (get (:params req) :slug)))})
+   :body    (render-file "templates/post.html" (find-post (get (:params req) :slug)))})
 
 (defroutes app
   (GET "/" [] home)
-  (GET "/post/:slug" [slug] post)
+  (GET "/:slug" {{slug :slug} :params} view)
+  (GET "/:slug/" {{slug :slug} :params} view)
   (resources "/"))
