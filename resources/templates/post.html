@@ -1,6 +1,7 @@
 {% extends "templates/base.html" %}
 {% block top-image %}/img/post-bg.jpg{% endblock %}
-{% block metadata-title %}{{title}} by  {% endblock %}
+{% block metadata-title %}{{title|safe}} by  {% endblock %}
+{% block metadata-description %}{{short|safe}}{% endblock %}
 
 {% block content %}
     <!-- Post Content -->
