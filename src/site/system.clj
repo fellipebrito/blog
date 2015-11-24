@@ -1,7 +1,8 @@
 (ns site.system
   (:require [com.stuartsierra.component :as component]
             [org.httpkit.server :refer [run-server]]
-            [site.web :refer [app]]))
+            [site.web :refer [app]]
+            [environ.core :refer [env]]))
 
 (defn- start-server [handler port]
   (let [server (run-server handler {:port port})]
