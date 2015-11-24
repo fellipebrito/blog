@@ -44,8 +44,20 @@
    :headers {"Content-Type" "text/html"}
    :body    (render-file "templates/post.html" (find-post (get (:params req) :slug)))})
 
+(defn contact [req]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body    (render-file "templates/contact.html" {})})
+
+(defn about [req]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body    (render-file "templates/about.html" {})})
+
 (defroutes app
   (GET "/" [] home)
+  (GET "/contact" [] contact)
+  (GET "/about" [] about)
   (GET "/:slug" {{slug :slug} :params} view)
   (GET "/:slug/" {{slug :slug} :params} view)
   (resources "/"))
