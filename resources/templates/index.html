@@ -88,15 +88,13 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 {% for post in posts %}
                 <div class="post-preview">
-                    <a href="{{post.metadata.permalink|first}}">
+                    <a href="{{post.permalink}}">
                         <h2 class="post-title">
-                            {{post.metadata.title|first}}
+                          {{post.title}}
                         </h2>
-                        <h3 class="post-subtitle">
-                            Problems look mighty small from 150 miles up
-                        </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+                    {{post.short}}... <i><a href="{{post.permalink}}">[continue lendo]</i></a>
+                      <p class="post-meta">Posted by <a href="#">{{post.author|title}}</a> on {{post.date|date:fullDate}}</p>
                 </div>
                 <hr>
                 {% endfor %}

@@ -1,8 +1,9 @@
 ---
 title: '#prayForHumanity'
+subtitle: A única maneira sã que eu encontro para conseguir encarar este mundo é a esperança de que há algo mais.
 author: fellipe
-layout: post
 permalink: /prayforhumanity/
+short: O ISIS fez novas vítimas na cidade luz. Um dia antes, porém, o mesmo grupo matou mais de 40 pessoas e feriu outras 200 em um atentado em Beirut. Em breve serão as famílias iraquianas e sírias que terão suas vidas destroçadas com o contra-ataque que virá - ele sempre vem -, das forças militares internacionais...
 categories:
   - Uncategorized
 ---
