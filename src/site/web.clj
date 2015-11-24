@@ -9,7 +9,17 @@
             [clojure.string :as str]))
 
 (defn parse-post-metadata [file]
-  (md/md-to-html-string-with-meta (str/replace (-> (str "posts/" file ".md") io/resource slurp) "---\n" "")))
+  (let [post (md/md-to-html-string-with-meta (str/replace (-> (str "posts/" file ".md") io/resource slurp) "---\n" ""))
+        metadata (get post :metadata)
+        html (get post :html)
+        date (str/split file #"-")]
+    {:html html
+     :date (str (first date)"-"(second date)"-"(get date 2))
+     :title (first (get metadata :title))
+     :subtitle (first (get metadata :subtitle))
+     :author (first (get metadata :author))
+     :permalink (first (get metadata :permalink))
+     :short (first (get metadata :short))}))
 
 (def post-files-list
   (let [directory (clojure.java.io/file "resources/posts/")
@@ -20,7 +30,7 @@
   (map parse-post-metadata post-files-list))
 
 (defn find-post [permalink]
-  (first (filter (fn [post] (= (str "/" permalink "/") (first (get (get post :metadata) :permalink))))
+  (first (filter (fn [post] (= (str "/" permalink "/") (get post :permalink)))
           (for [post all-posts] post))))
 
 ;; ROUTES
