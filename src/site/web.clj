@@ -24,10 +24,10 @@
 (def post-files-list
   (let [directory (clojure.java.io/file "resources/posts/")
         files (for [file (file-seq directory)] (first (str/split (.getName file) #".md")))]
-    (reverse (remove #(= % "posts") (remove #(= % ".DS_Store") files)))))
+    (remove #(= % "posts") (remove #(= % ".DS_Store") files))))
 
 (def all-posts
-  (map parse-post-metadata post-files-list))
+  (reverse (sort-by :date (map parse-post-metadata post-files-list))))
 
 (defn find-post [permalink]
   (first (filter (fn [post] (= (str "/" permalink "/") (get post :permalink)))
