@@ -33,7 +33,6 @@
   (first (filter (fn [post] (= (str "/" permalink "/") (get post :permalink)))
           (for [post all-posts] post))))
 
-(find-post "prayforhumanity")
 ;; ROUTES
 (defn home [req]
   {:status 200
