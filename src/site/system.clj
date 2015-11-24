@@ -16,7 +16,7 @@
 (defrecord ParensOfTheDead []
   component/Lifecycle
   (start [this]
-    (assoc this :server (start-server #'app 5000)))
+    (assoc this :server (start-server #'app (Integer. (or (env :port) 5000)))))
   (stop [this]
     (stop-server (:server this))
     (dissoc this :server)))
