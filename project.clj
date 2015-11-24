@@ -4,6 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :main site.system
+  :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.7.0"]
                  ;; HTTP
                  [compojure "1.1.8"]
@@ -14,6 +15,8 @@
                  ;; TEMPLATE
                  [selmer "0.9.5"]
                  [markdown-clj "0.9.82"]]
-  :profiles {:dev {:plugins []
+  :uberjar-name "site.jar"
+  :profiles {:production {:env {:production true}}
+             :dev {:plugins []
                    :dependencies []
                    :source-paths ["dev"]}})
